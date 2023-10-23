@@ -8,6 +8,7 @@ public class Jukebox {
             case 2 -> "Спокойной ночи";
             default -> "Песня не найдена";
         };
+        System.out.println(str);
     }
 
     public static void main(String[] args) {
