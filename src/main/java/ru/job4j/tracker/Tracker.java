@@ -38,8 +38,8 @@ public class Tracker {
         if (idx == -1) {
             return false;
         }
+        item.setId(id);
         items[idx] = item;
-        items[idx].setId(id);
         return true;
     }
 
