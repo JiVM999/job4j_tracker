@@ -25,8 +25,9 @@ public class Tracker {
     }
 
     public void delete(int id) {
-        System.arraycopy(items, id, items, id - 1, size - id - 1);
-        items[size - 1] = null;
+        int idx = indexOf(id);
+        items[idx] = null;
+        System.arraycopy(items, idx, items, idx + 1, size - idx - 1);
         size--;
     }
 
