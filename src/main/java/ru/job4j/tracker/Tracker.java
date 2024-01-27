@@ -46,12 +46,11 @@ public class Tracker {
     public boolean replace(int id, Item item) {
         int idx = indexOf(id);
         boolean result = idx != -1;
-        if (!result) {
-            return false;
+        if (result) {
+            item.setId(id);
+            items[idx] = item;
         }
-        item.setId(id);
-        items[idx] = item;
-        return true;
+        return result;
     }
 
     public Item[] findByName(String key) {
