@@ -9,66 +9,76 @@ public class StartUI {
             showMenu();
             System.out.print("Выбрать: ");
             int select = Integer.parseInt(scanner.nextLine());
-            if (select == 0) {
-                System.out.println("=== Создание новой заявки ===");
-                System.out.print("Введите имя: ");
-                String name = scanner.nextLine();
-                Item item = new Item(name);
-                tracker.add(item);
-                System.out.println("Добавленная заявка: " + item);
-            } else if (select == 1) {
-                System.out.println("=== Вывод всех заявок ===");
-                Item[] items = tracker.findAll();
-                if (items.length > 0) {
-                    for (Item item : items) {
-                        System.out.println(item);
+            switch (select) {
+                case 0:
+                    System.out.println("=== Создание новой заявки ===");
+                    System.out.print("Введите имя: ");
+                    String name = scanner.nextLine();
+                    Item item = new Item(name);
+                    tracker.add(item);
+                    System.out.println("Добавленная заявка: " + item);
+                    break;
+                case 1:
+                    System.out.println("=== Вывод всех заявок ===");
+                    Item[] items = tracker.findAll();
+                    if (items.length > 0) {
+                        for (Item i : items) {
+                            System.out.println(i);
+                        }
+                    } else {
+                        System.out.println("Хранилище еще не содержит заявок");
                     }
-                } else {
-                    System.out.println("Хранилище еще не содержит заявок");
-                }
-            } else if (select == 2) {
-                System.out.println("=== Редактирование заявки ===");
-                System.out.print("Введите id: ");
-                int id = Integer.parseInt(scanner.nextLine());
-                System.out.print("Введите имя: ");
-                String name = scanner.nextLine();
-                Item item = new Item(name);
-                if (tracker.replace(id, item)) {
-                    System.out.println("Заявка изменена успешно.");
-                } else {
-                    System.out.println("Ошибка замены заявки.");
-                }
-            } else if (select == 3) {
-                System.out.println("=== Удаление заявки ===");
-                System.out.print("Введите id: ");
-                int id = Integer.parseInt(scanner.nextLine());
-                Item item = tracker.findById(id);
-                tracker.delete(id);
-                System.out.println(item != null ? "Заявка удалена успешно." : "Ошибка удаления заявки.");
-            } else if (select == 4) {
-                System.out.println("=== Вывод заявки по id ===");
-                System.out.print("Введите id: ");
-                int id = Integer.parseInt(scanner.nextLine());
-                Item item = tracker.findById(id);
-                if (item != null) {
-                    System.out.println(item);
-                } else {
-                    System.out.println("Заявка с введенным id: " + id + " не найдена.");
-                }
-            } else if (select == 5) {
-                System.out.println("=== Вывод заявок по имени ===");
-                System.out.print("Введите имя: ");
-                String name = scanner.nextLine();
-                Item[] items = tracker.findByName(name);
-                if (items.length > 0) {
-                    for (Item item : items) {
-                        System.out.println(item);
+                    break;
+                case 2:
+                    System.out.println("=== Редактирование заявки ===");
+                    System.out.print("Введите id: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Введите имя: ");
+                    String newName = scanner.nextLine();
+                    Item newItem = new Item(newName);
+                    if (tracker.replace(id, newItem)) {
+                        System.out.println("Заявка изменена успешно.");
+                    } else {
+                        System.out.println("Ошибка замены заявки.");
                     }
-                } else {
-                    System.out.println("Заявки с именем: " + name + " не найдены.");
-                }
-            } else if (select == 6) {
-                run = false;
+                    break;
+                case 3:
+                    System.out.println("=== Удаление заявки ===");
+                    System.out.print("Введите id: ");
+                    int deleteId = Integer.parseInt(scanner.nextLine());
+                    Item deletedItem = tracker.findById(deleteId);
+                    tracker.delete(deleteId);
+                    System.out.println(deletedItem != null ? "Заявка удалена успешно." : "Ошибка удаления заявки.");
+                    break;
+                case 4:
+                    System.out.println("=== Вывод заявки по id ===");
+                    System.out.print("Введите id: ");
+                    int searchId = Integer.parseInt(scanner.nextLine());
+                    Item foundItem = tracker.findById(searchId);
+                    if (foundItem != null) {
+                        System.out.println(foundItem);
+                    } else {
+                        System.out.println("Заявка с введенным id: " + searchId + " не найдена.");
+                    }
+                    break;
+                case 5:
+                    System.out.println("=== Вывод заявок по имени ===");
+                    System.out.print("Введите имя: ");
+                    String searchName = scanner.nextLine();
+                    Item[] itemsByName = tracker.findByName(searchName);
+                    if (itemsByName.length > 0) {
+                        for (Item i : itemsByName) {
+                            System.out.println(i);
+                        }
+                    } else {
+                        System.out.println("Заявки с именем: " + searchName + " не найдены.");
+                    }
+                    break;
+                case 6:
+                    run = false;
+                    break;
+                default:
+                    System.out.println("Некорректный ввод. Пожалуйста, выберите существующий пункт меню.");
             }
         }
     }
