@@ -80,7 +80,7 @@ public class StartUI {
         }
     }
 
-    private static void deleteItem(Input input, Tracker tracker) {
+    public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Удаление заявки ===");
         int deleteId = input.askInt("Введите id: ");
         Item deletedItem = tracker.findById(deleteId);
@@ -88,7 +88,7 @@ public class StartUI {
         System.out.println(deletedItem != null ? "Заявка удалена успешно." : "Ошибка удаления заявки.");
     }
 
-    private static void findItemById(Input input, Tracker tracker) {
+    public static void findItemById(Input input, Tracker tracker) {
         System.out.println("=== Вывод заявки по id ===");
         int searchId = input.askInt("Введите id: ");
         Item foundItem = tracker.findById(searchId);
