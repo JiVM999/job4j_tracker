@@ -18,6 +18,7 @@ public class UserStore {
             return true;
         }
         throw new UserInvalidException("Пользователь не подтвержден");
+
     }
 
     public static void main(String[] args) {
