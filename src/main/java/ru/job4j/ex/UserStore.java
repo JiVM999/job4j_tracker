@@ -5,7 +5,6 @@ public class UserStore {
     public static User findUser(User[] users, String login) throws UserNotFoundException {
         for (User user : users) {
             if (user.getUsername().equals(login)) {
-                System.out.println("Пользователь найден");
                 return user;
             }
         }
@@ -14,7 +13,6 @@ public class UserStore {
 
     public static boolean validate(User user) throws UserInvalidException {
         if (user.isValid() && user.getUsername().length() >= 3) {
-            System.out.println("Пользователь подтвержден");
             return true;
         }
         throw new UserInvalidException("Пользователь не подтвержден");
