@@ -41,4 +41,15 @@ class ValidateInputTest {
         int finish = input.askInt("Enter menu:");
         assertThat(finish).isEqualTo(2);
     }
+
+    @Test
+    void whenNegativeInvalidInput() {
+        Output output = new StubOutput();
+        Input in = new MockInput(
+                new String[] {"-1"}
+        );
+        ValidateInput input = new ValidateInput(output, in);
+        int start = input.askInt("Enter menu:");
+        assertThat(start).isEqualTo(-1);
+    }
 }
