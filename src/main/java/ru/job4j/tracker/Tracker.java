@@ -30,7 +30,6 @@ public class Tracker {
         boolean condition = idx != -1;
         if (condition) {
             items.remove(idx);
-            items.remove(items.size() - 1);
         }
     }
 
