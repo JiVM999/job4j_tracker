@@ -8,6 +8,8 @@ public class UsageMap {
         HashMap<String, String> accounts = new HashMap<>();
         accounts.put("qwerty@mail.com", "Mikhail Zenkov");
         accounts.put("asd@gmail.com", "Andrey Lenkov");
+        accounts.put("petr@gmail.com", "Mikhail Arsentev");
+        accounts.put("petr@gmail.com", "Petr Arsentev");
         for (Map.Entry<String, String> entry : accounts.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
