@@ -17,7 +17,7 @@ public class ReconstructPhrase {
         StringBuilder result = new StringBuilder();
         int size = evenElements.size();
         for (int i = 0; i < size; i++) {
-            char ch = evenElements.pop();
+            char ch = evenElements.pollFirst();
             if (i % 2 == 0) {
                 result.append(ch);
             }
