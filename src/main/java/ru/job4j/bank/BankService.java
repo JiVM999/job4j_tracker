@@ -13,26 +13,24 @@ public class BankService {
     }
 
     public void deleteUser(String passport) {
-        User user = findByPassport(passport);
-        users.remove(user);
+        users.remove(new User(passport, ""));
     }
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        if (user == null) {
-            return;
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+            if (!accounts.contains(account)) {
+                accounts.add(account);
+            }
+            users.put(user, accounts);
         }
-        List<Account> accounts = users.get(user);
-        if (!accounts.contains(account)) {
-            accounts.add(account);
-        }
-        users.put(user, accounts);
     }
 
     public User findByPassport(String passport) {
-        for (Map.Entry<User, List<Account>> user : users.entrySet()) {
-            if (user.getKey().getPassport().equals(passport)) {
-                return user.getKey();
+        for (User user : users.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                return user;
             }
         }
         return null;
@@ -40,13 +38,12 @@ public class BankService {
 
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
-        if (user == null) {
-            return null;
-        }
-        List<Account> accounts = users.get(user);
-        for (Account account : accounts) {
-            if (account.getRequisite().equals(requisite)) {
-                return account;
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+            for (Account account : accounts) {
+                if (account.getRequisite().equals(requisite)) {
+                    return account;
+                }
             }
         }
         return null;
@@ -55,36 +52,15 @@ public class BankService {
     public boolean transferMoney(String sourcePassport, String sourceRequisite,
                                  String destinationPassport, String destinationRequisite,
                                  double amount) {
-        User sourceUser = findByPassport(sourcePassport);
-        User destinationUser = findByPassport(destinationPassport);
-
         Account sourceAccount = findByRequisite(sourcePassport, sourceRequisite);
         Account destinationAccount = findByRequisite(destinationPassport, destinationRequisite);
-        if (sourceAccount == null || destinationAccount == null) {
-            return false;
+        if (sourceAccount != null && destinationAccount != null
+                && sourceAccount.getBalance() - amount >= 0) {
+            sourceAccount.setBalance(sourceAccount.getBalance() - amount);
+            destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+            return true;
         }
-
-        double sourceBalance = sourceAccount.getBalance();
-        double destinationBalance = destinationAccount.getBalance();
-        if (sourceBalance - amount < 0) {
-            return false;
-        }
-
-        sourceBalance -= amount;
-        destinationBalance += amount;
-        sourceAccount.setBalance(sourceBalance);
-        destinationAccount.setBalance(destinationBalance);
-
-        List<Account> sourceAccounts = getAccounts(sourceUser);
-        List<Account> destinationAccounts = getAccounts(destinationUser);
-        sourceAccounts.remove(findByRequisite(sourcePassport, sourceRequisite));
-        sourceAccounts.add(sourceAccount);
-        destinationAccounts.remove(findByRequisite(destinationPassport, destinationRequisite));
-        destinationAccounts.add(destinationAccount);
-
-        users.put(sourceUser, sourceAccounts);
-        users.put(destinationUser, destinationAccounts);
-        return true;
+        return false;
     }
 
     public List<Account> getAccounts(User user) {
