@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * Класс описывает модель пользователя банка
- * @author STAS KOROBEYNIKOV
+ * @author MIKHAIL ZENKOV
  * @version 1.0
  */
 public class User {
