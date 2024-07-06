@@ -8,8 +8,7 @@ public class LexSort implements Comparator<String> {
     public int compare(String left, String right) {
         String[] leftArr = left.split(" ")[0].split("\\.");
         String[] rightArr = right.split(" ")[0].split("\\.");
-        int len = Math.min(leftArr.length, rightArr.length);
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < Math.min(leftArr.length, rightArr.length); i++) {
             int comp = Integer.compare(Integer.parseInt(leftArr[i]), Integer.parseInt(rightArr[i]));
             if (comp != 0) {
                 return comp;
