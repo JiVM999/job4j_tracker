@@ -39,7 +39,7 @@ public class JobTest {
     public void whenDescCompatorByPrority() {
         Comparator<Job> cmpNamePriority = new JobDescByPriority();
         int rsl = cmpNamePriority.compare(
-                new Job("Impl task", 2),
+                new Job("Fix bug", 2),
                 new Job("Fix bug", 5)
         );
         assertThat(rsl).isGreaterThan(0);
