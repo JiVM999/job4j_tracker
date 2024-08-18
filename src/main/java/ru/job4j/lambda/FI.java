@@ -13,9 +13,8 @@ public class FI {
                 new Attachment("image 2", 23)
         };
         Comparator<Attachment> comparator = (left, right) -> Integer.compare(left.getSize(), right.getSize());
-        Comparator<String> stringComparator = new StringCompare();
-        Comparator<String> comparatorText = (left, right) -> stringComparator.compare(left, right);
-        Comparator<String> comparatorDescSize = (left, right) -> stringComparator.compare(right, left);
+        Comparator<String> comparatorText = (left, right) -> left.compareTo(right);
+        Comparator<String> comparatorDescSize = (left, right) -> Integer.compare(right.length(), left.length());
         Arrays.sort(attachments, comparator);
     }
 
