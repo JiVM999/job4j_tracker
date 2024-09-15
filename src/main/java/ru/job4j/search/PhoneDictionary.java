@@ -21,7 +21,7 @@ public class PhoneDictionary {
                 .or(combineSurname);
 
         ArrayList<Person> result = new ArrayList<>();
-        for (Person person : persons) {
+        for (var person : persons) {
             if (combineAll.test(person)) {
                 result.add(person);
             }
