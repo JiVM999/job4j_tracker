@@ -19,6 +19,4 @@ public class DepartmentsDescComparator implements Comparator<String> {
         }
         return Integer.compare(left.length(), right.length());
     }
-
-
 }
