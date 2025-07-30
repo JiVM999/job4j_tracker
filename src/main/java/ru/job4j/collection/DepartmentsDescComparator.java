@@ -5,16 +5,19 @@ import java.util.Comparator;
 public class DepartmentsDescComparator implements Comparator<String> {
     @Override
     public int compare(String left, String right) {
-        int min = Math.min(left.length(), right.length());
-        boolean asc = (left.substring(0, min - 2)
-                .equals(right.substring(0, min - 2)))
-                && min != 2;
-        if (asc) {
-            return new StringCompare().compare(left, right);
+        String[] leftArray = left.split("/");
+        String[] rightArray = right.split("/");
+        int min = Math.min(leftArray.length, rightArray.length);
+        int firstEl = Integer.compare(rightArray[0].charAt(1), leftArray[0].charAt(1));
+        if (firstEl != 0) {
+            return firstEl;
         }
         for (int i = 0; i < min; i++) {
-            if (left.charAt(i) != right.charAt(i)) {
-                return Character.compare(right.charAt(i), left.charAt(i));
+            for (int j = 0; j < leftArray[i].length(); j++) {
+                int comp = Character.compare(leftArray[i].charAt(j), rightArray[i].charAt(j));
+                if (comp != 0) {
+                    return comp;
+                }
             }
         }
         return Integer.compare(left.length(), right.length());
